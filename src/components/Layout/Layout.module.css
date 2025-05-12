@@ -1,0 +1,9 @@
+.layoutContainer {
+  padding: 26px 0;
+}
+
+.navigationContainer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}

@@ -1,0 +1,9 @@
+.navigation {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+}
+
+.active {
+  color: var(--navy-blue);
+}
