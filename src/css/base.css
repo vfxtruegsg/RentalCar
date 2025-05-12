@@ -9,38 +9,40 @@
   --navy-blue: #0b44cd;
   --blue: #3470ff;
   --dark-blue: #101828;
+
+  --animation: 250ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 /* font */
 
 @font-face {
   font-display: swap;
-  font-family: "manrope";
-  src: url("./font/Manrope-Regular.ttf") format("truetype");
+  font-family: 'manrope';
+  src: url('./font/Manrope-Regular.ttf') format('truetype');
   font-weight: 400;
   font-style: normal;
 }
 
 @font-face {
   font-display: swap;
-  font-family: "manrope";
-  src: url("./font/Manrope-Medium.ttf") format("truetype");
+  font-family: 'manrope';
+  src: url('./font/Manrope-Medium.ttf') format('truetype');
   font-weight: 500;
   font-style: normal;
 }
 
 @font-face {
   font-display: swap;
-  font-family: "manrope";
-  src: url("./font/Manrope-SemiBold.ttf") format("truetype");
+  font-family: 'manrope';
+  src: url('./font/Manrope-SemiBold.ttf') format('truetype');
   font-weight: 600;
   font-style: normal;
 }
 
 @font-face {
   font-display: swap;
-  font-family: "manrope";
-  src: url("./font/Manrope-Bold.ttf") format("truetype");
+  font-family: 'manrope';
+  src: url('./font/Manrope-Bold.ttf') format('truetype');
   font-weight: 700;
   font-style: normal;
 }
@@ -66,7 +68,7 @@ button {
 /* body */
 
 body {
-  font-family: "manrope", sans-serif;
+  font-family: 'manrope', sans-serif;
   font-weight: 500;
   font-size: 16px;
   font-style: normal;
@@ -86,7 +88,9 @@ body {
 /* container */
 
 .container {
-  width: 1440px;
+  min-width: 320px;
+  max-width: 1440px;
+  width: 100%;
   padding: 0 120px;
   margin: 0 auto;
   box-sizing: border-box;
@@ -105,12 +109,19 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 0px;
 
   border-radius: 12px;
-  padding: 12px 99px;
   width: 276px;
   height: 44px;
 
+  color: var(--white);
   background: var(--blue);
+
+  transition: all var(--animation);
+}
+
+.blue-btn:hover,
+.blue-btn:focus {
+  transform: scale(1.05);
+  background: var(--navy-blue);
 }

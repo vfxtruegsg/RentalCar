@@ -1,1 +1,46 @@
+.homePageContainer {
+  position: relative;
+  height: calc(100vh - 72px);
+  background-image: url('../../image/homepage-background.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
 
+@media (-webkit-min-device-pixel-ratio: 2),
+  (min-resolution: 192dpi),
+  (min-resolution: 2dppx) {
+  .homePageContainer {
+    background-image: url('../../image/homepage-background_x2.png');
+  }
+}
+
+.homePageContainer__homeSection {
+  position: absolute;
+  bottom: 60px;
+  left: 50%;
+  transform: translateX(-50%);
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 40px;
+}
+
+.homeSection__homeHeader {
+  font-weight: 700;
+  font-size: 60px;
+  line-height: 1.2;
+  color: var(--white);
+  text-align: center;
+
+  margin-bottom: 16px;
+}
+
+.homeSection__homeTitle {
+  font-weight: 600;
+  font-size: 24px;
+  line-height: 1.33333;
+  color: var(--white);
+  text-align: center;
+}
