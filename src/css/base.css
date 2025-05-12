@@ -1,0 +1,116 @@
+/* variables */
+
+:root {
+  --white: #ffffff;
+  --light-white: #f7f7f7;
+  --gray: #8e929a;
+  --navy-gray: #8d929a;
+  --light-gray: #f2f4f7;
+  --navy-blue: #0b44cd;
+  --blue: #3470ff;
+  --dark-blue: #101828;
+}
+
+/* font */
+
+@font-face {
+  font-display: swap;
+  font-family: "manrope";
+  src: url("./font/Manrope-Regular.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-display: swap;
+  font-family: "manrope";
+  src: url("./font/Manrope-Medium.ttf") format("truetype");
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+  font-display: swap;
+  font-family: "manrope";
+  src: url("./font/Manrope-SemiBold.ttf") format("truetype");
+  font-weight: 600;
+  font-style: normal;
+}
+
+@font-face {
+  font-display: swap;
+  font-family: "manrope";
+  src: url("./font/Manrope-Bold.ttf") format("truetype");
+  font-weight: 700;
+  font-style: normal;
+}
+
+/* some settings */
+
+html,
+body {
+  position: relative;
+  overflow-x: hidden;
+}
+
+textarea:focus,
+select:focus,
+input:focus {
+  outline: 0;
+}
+
+button {
+  cursor: pointer;
+}
+
+/* body */
+
+body {
+  font-family: "manrope", sans-serif;
+  font-weight: 500;
+  font-size: 16px;
+  font-style: normal;
+  line-height: 1.25;
+
+  background-color: var(--white);
+  color: var(--dark-blue);
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-text-size-adjust: 100%;
+  scroll-behavior: smooth;
+}
+
+/* container */
+
+.container {
+  width: 1440px;
+  padding: 0 120px;
+  margin: 0 auto;
+  box-sizing: border-box;
+}
+
+/* base component style */
+
+.car-card-description-text {
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 1.33333;
+  color: var(--navy-gray);
+}
+
+.blue-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0px;
+
+  border-radius: 12px;
+  padding: 12px 99px;
+  width: 276px;
+  height: 44px;
+
+  background: var(--blue);
+}
