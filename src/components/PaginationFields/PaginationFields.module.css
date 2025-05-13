@@ -1,8 +1,68 @@
-.paginationContainer {
+.paginationForm {
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 16px;
 
   margin-top: 84px;
+  margin-bottom: 56px;
+}
+
+/* select */
+
+.label {
+  display: block;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 1.33333;
+  padding-bottom: 8px;
+  color: var(--navy-gray);
+}
+
+.select {
+  display: block;
+  width: 196px;
+  height: 44px;
+  padding: 12px 16px;
+  border-radius: 12px;
+  appearance: none;
+  background-color: var(--light-white);
+}
+
+.select:focus {
+  border-color: #007bff;
+  outline: none;
+}
+
+/* mileage fields */
+
+.mileageFieldsContainer {
+  display: flex;
+  align-items: start;
+  flex-direction: column;
+}
+
+.label {
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 1.33333;
+  padding-bottom: 8px;
+  color: var(--navy-gray);
+}
+
+.fromMileage {
+  border-right: 1px solid #dadde1;
+  border-radius: 12px 0 0 12px;
+  padding: 12px 24px;
+  width: 160px;
+  height: 44px;
+  background-color: var(--light-white);
+}
+
+.toMileage {
+  border-radius: 0 12px 12px 0;
+  padding: 12px 24px;
+  width: 160px;
+  height: 44px;
+  background-color: var(--light-white);
 }

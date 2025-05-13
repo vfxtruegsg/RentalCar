@@ -6,7 +6,7 @@ const CatalogPage = () => {
 
   return (
     <>
-      <PaginationFields />
+      <PaginationFields carList={['bmw', 'audi', 'porshe']} />
     </>
   );
 };
