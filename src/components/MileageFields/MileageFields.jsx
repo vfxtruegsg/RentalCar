@@ -1,9 +1,12 @@
 import { nanoid } from '@reduxjs/toolkit';
 import css from './MileageFields.module.css';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useSearchParams } from 'react-router-dom';
 
 const MileageFields = () => {
   const mileageFieldId = nanoid();
+
+  const [searchParams, setSearchParams] = useSearchParams();
 
   const [fromMileage, setFromMileage] = useState();
   const [toMileage, setToMileage] = useState();
@@ -15,6 +18,24 @@ const MileageFields = () => {
   const onSelectToMileage = (e) => {
     setToMileage(e.target.value);
   };
+
+  useEffect(() => {
+    const params = new URLSearchParams(searchParams);
+
+    if (fromMileage) {
+      params.set('minMileage', fromMileage);
+    } else {
+      params.delete('minMileage');
+    }
+
+    if (toMileage) {
+      params.set('maxMileage', toMileage);
+    } else {
+      params.delete('maxMileage');
+    }
+
+    setSearchParams(params);
+  }, [searchParams, setSearchParams, fromMileage, toMileage]);
 
   return (
     <div className={css.mileageFieldsContainer}>

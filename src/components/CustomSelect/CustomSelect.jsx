@@ -1,12 +1,27 @@
+import { useSearchParams } from 'react-router-dom';
 import css from './CustomSelect.module.css';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
-const CustomSelect = ({ data, label, placeholder }) => {
-  const [select, setSelect] = useState('');
+const CustomSelect = ({ data, label, placeholder, paramsType }) => {
+  const [select, setSelect] = useState();
+
+  const [searchParams, setSearchParams] = useSearchParams();
 
   const onSelect = (e) => {
     setSelect(e.target.value);
   };
+
+  useEffect(() => {
+    const params = new URLSearchParams(searchParams);
+
+    if (select) {
+      params.set(paramsType, select);
+    } else {
+      params.delete(paramsType);
+    }
+
+    setSearchParams(params);
+  }, [paramsType, select, searchParams, setSearchParams]);
 
   return (
     <fieldset className={css.fieldset}>

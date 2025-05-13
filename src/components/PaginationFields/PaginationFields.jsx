@@ -20,41 +20,22 @@ const pricePerHour = [
   '150'
 ];
 
-const PaginationFields = () => {
+const PaginationFields = ({ carList }) => {
   return (
     <div className={css.paginationContainer}>
       <CustomSelect
-        data={[
-          'Aston Martin',
-          'Audi',
-          'BMW',
-          'Bentley',
-          'Buick',
-          'Chevrolet',
-          'Chrysler',
-          'GMC',
-          'HUMMER',
-          'Hyundai',
-          'Kia',
-          'Lamborghini',
-          'Land Rover',
-          'Lincoln',
-          'MINI',
-          'Mercedes-Benz',
-          'Mitsubishi',
-          'Nissan',
-          'Pontiac',
-          'Subaru',
-          'Volvo'
-        ]}
+        // data={carList}
+        data={['bmw', 'audi', 'porshe']}
         label={'Car brand'}
         placeholder={'brand'}
+        paramsType={'brand'}
       />
 
       <CustomSelect
         data={pricePerHour}
         label={'Price/ 1 hour'}
         placeholder={'price'}
+        paramsType={'rentalPrice'}
       />
 
       <MileageFields />
