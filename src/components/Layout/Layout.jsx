@@ -4,7 +4,7 @@ import Navigation from '../Navigation/Navigation.jsx';
 
 const Layout = () => {
   return (
-    <div className={css.layoutContainer}>
+    <header className={css.header}>
       <nav className={`${css.navigationContainer} container`}>
         <img
           src="/RentalCar.svg"
@@ -15,7 +15,7 @@ const Layout = () => {
 
         <Navigation />
       </nav>
-    </div>
+    </header>
   );
 };
 

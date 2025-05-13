@@ -1,5 +1,11 @@
+import PaginationFields from '../../components/PaginationFields/PaginationFields.jsx';
+
 const CatalogPage = () => {
-  return <div>CatalogPage</div>;
+  return (
+    <>
+      <PaginationFields />
+    </>
+  );
 };
 
 export default CatalogPage;

@@ -1,0 +1,30 @@
+.mileageFieldsContainer {
+  display: flex;
+  align-items: start;
+  flex-direction: column;
+}
+
+.label {
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 1.33333;
+  padding-bottom: 8px;
+  color: var(--navy-gray);
+}
+
+.fromMileage {
+  border-right: 1px solid #dadde1;
+  border-radius: 12px 0 0 12px;
+  padding: 12px 24px;
+  width: 160px;
+  height: 44px;
+  background-color: var(--light-white);
+}
+
+.toMileage {
+  border-radius: 0 12px 12px 0;
+  padding: 12px 24px;
+  width: 160px;
+  height: 44px;
+  background-color: var(--light-white);
+}
