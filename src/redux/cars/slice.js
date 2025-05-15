@@ -3,7 +3,7 @@ import { getAllRentCarsThunk, getCarBrandsThunk } from './operations.js';
 
 const initialState = {
   brands: [],
-  carList: [],
+  carData: [],
   isLoading: false
 };
 
@@ -14,13 +14,13 @@ const slice = createSlice({
     builder
 
       .addCase(getCarBrandsThunk.fulfilled, (state, action) => {
-        state.brands = action.payload;
         state.isLoading = false;
+        state.brands = action.payload;
       })
 
       .addCase(getAllRentCarsThunk.fulfilled, (state, action) => {
         state.isLoading = false;
-        state.carList = action.payload;
+        state.carData = action.payload.cars;
       })
 
       .addMatcher(

@@ -3,6 +3,9 @@ import css from './PaginationFields.module.css';
 import { useSearchParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { nanoid } from '@reduxjs/toolkit';
+import { showToastErrorMessage } from '../../utils/toastMessages.js';
+import { useDispatch } from 'react-redux';
+import { getAllRentCarsThunk } from '../../redux/cars/operations.js';
 
 const pricePerHour = [
   '10',
@@ -29,12 +32,13 @@ const selectOptions = (data) => {
   }));
 };
 
-const PaginationFields = ({ carList }) => {
+const PaginationFields = ({ brands }) => {
+  const dispatch = useDispatch();
   const mileageFieldId = nanoid();
 
   const [searchParams, setSearchParams] = useSearchParams();
 
-  const brandOptions = selectOptions(carList);
+  const brandOptions = selectOptions(brands);
   const priceOptions = selectOptions(pricePerHour);
 
   const getOptionByValue = (options, value) =>
@@ -90,12 +94,34 @@ const PaginationFields = ({ carList }) => {
     setSearchParams
   ]);
 
+  const searchCars = (e) => {
+    e.preventDefault();
+    const form = e.target.elements;
+    const fromMileageValue = form.fromMileage.value;
+    const toMileageValue = form.toMileage.value;
+
+    if (+fromMileageValue > +toMileageValue) {
+      return showToastErrorMessage(
+        'The minimum mileage must be less than the maximum.'
+      );
+    }
+
+    dispatch(
+      getAllRentCarsThunk({
+        brand: selectBrand?.value || '',
+        rentalPrice: selectPrice?.value || '',
+        minMileage: fromMileageValue || '',
+        maxMileage: toMileageValue || ''
+      })
+    );
+  };
+
   return (
-    <form className={css.paginationForm}>
+    <form onSubmit={searchCars} className={css.paginationForm}>
       <fieldset className={css.fieldset}>
         <label className={css.label}>Car brand</label>
         <Select
-          options={selectOptions(carList)}
+          options={selectOptions(brands)}
           value={selectBrand}
           defaultValue={selectBrand}
           onChange={(selectedOption) => {
@@ -193,6 +219,7 @@ const PaginationFields = ({ carList }) => {
             onChange={(e) => {
               setFromMileage(e.target.value);
             }}
+            name="fromMileage"
             id={mileageFieldId}
             className={css.fromMileage}
             type="number"
@@ -203,6 +230,7 @@ const PaginationFields = ({ carList }) => {
             onChange={(e) => {
               setToMileage(e.target.value);
             }}
+            name="toMileage"
             className={css.toMileage}
             type="number"
             placeholder="To"

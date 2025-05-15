@@ -6,7 +6,7 @@ const CarList = ({ carData }) => {
     <div className="container">
       <ul className={css.carList}>
         {carData.map((item) => (
-          <CarItem carInf={item} />
+          <CarItem key={item.id} carInf={item} />
         ))}
       </ul>
     </div>

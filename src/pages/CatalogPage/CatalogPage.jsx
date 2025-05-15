@@ -11,8 +11,11 @@ import {
   getCarBrandsThunk
 } from '../../redux/cars/operations.js';
 import { Loader } from '../../components/Loader/Loader.jsx';
+import { useSearchParams } from 'react-router-dom';
 
 const CatalogPage = () => {
+  const [searchParams] = useSearchParams();
+
   const PaginationFields = lazy(() =>
     import('../../components/PaginationFields/PaginationFields.jsx')
   );
@@ -21,22 +24,29 @@ const CatalogPage = () => {
   const dispatch = useDispatch();
   const isLoading = useSelector(selectIsLoading);
   const carBrands = useSelector(selectCarBrands);
-  const carList = useSelector(selectCarList);
+  const carData = useSelector(selectCarList);
 
   useEffect(() => {
-    dispatch(getCarBrandsThunk());
-    dispatch(getAllRentCarsThunk());
-  }, [dispatch]);
+    const filterQuery = {
+      brand: searchParams.get('brand') || '',
+      rentalPrice: searchParams.get('rentalPrice') || '',
+      minMileage: searchParams.get('minMileage') || '',
+      maxMileage: searchParams.get('maxMileage') || ''
+    };
 
-  if (!carBrands || carBrands.length || carList.length === 0) return null;
+    dispatch(getCarBrandsThunk());
+    if (carData.length === 0) {
+      dispatch(getAllRentCarsThunk(filterQuery));
+    }
+  }, [dispatch, searchParams, carData.length]);
 
   return (
     <>
       <Suspense fallback={<Loader />}>
         {isLoading && <Loader />}
         <section className={css.catalogPageSection}>
-          <PaginationFields carList={carBrands} />
-          <CarList carData={carList} />
+          <PaginationFields brands={carBrands} />
+          <CarList carData={carData} />
         </section>
       </Suspense>
     </>
