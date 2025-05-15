@@ -1,4 +1,2 @@
 @import url('./css/reset.css');
 @import url('./css/base.css');
-@import 'tailwindcss';
-@plugin "daisyui";

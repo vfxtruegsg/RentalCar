@@ -1,3 +1,4 @@
+import Select from 'react-select';
 import css from './PaginationFields.module.css';
 import { useSearchParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
@@ -21,43 +22,48 @@ const pricePerHour = [
   '150'
 ];
 
+const selectOptions = (data) => {
+  return data.map((item) => ({
+    value: item.toLowerCase(),
+    label: item
+  }));
+};
+
 const PaginationFields = ({ carList }) => {
   const [searchParams, setSearchParams] = useSearchParams();
 
-  const [selectBrand, setSelectBrand] = useState();
-  const [selectPrice, setSelectPrice] = useState();
-  const [selectFromMileage, setFromMileage] = useState('');
-  const [selectToMileage, setToMileage] = useState('');
+  const brandOptions = selectOptions(carList);
+  const priceOptions = selectOptions(pricePerHour);
+
+  const getOptionByValue = (options, value) =>
+    options.find((option) => option.value === value) ?? null;
+
+  const [selectBrand, setSelectBrand] = useState(
+    getOptionByValue(brandOptions, searchParams.get('brand'))
+  );
+  const [selectPrice, setSelectPrice] = useState(
+    getOptionByValue(priceOptions, searchParams.get('rentalPrice'))
+  );
+  const [selectFromMileage, setFromMileage] = useState(
+    searchParams.get('minMileage') ?? ''
+  );
+  const [selectToMileage, setToMileage] = useState(
+    searchParams.get('maxMileage') ?? ''
+  );
 
   const mileageFieldId = nanoid();
-
-  const onSelectBrand = (e) => {
-    setSelectBrand(e.target.value);
-  };
-
-  const onSelectPrice = (e) => {
-    setSelectPrice(e.target.value);
-  };
-
-  const onSelectFromMileage = (e) => {
-    setFromMileage(e.target.value);
-  };
-
-  const onSelectToMileage = (e) => {
-    setToMileage(e.target.value);
-  };
 
   useEffect(() => {
     const params = new URLSearchParams(searchParams);
 
     if (selectBrand) {
-      params.set('brand', selectBrand);
+      params.set('brand', selectBrand.value);
     } else {
       params.delete('brand');
     }
 
     if (selectPrice) {
-      params.set('rentalPrice', selectPrice);
+      params.set('rentalPrice', selectPrice.value);
     } else {
       params.delete('rentalPrice');
     }
@@ -88,34 +94,92 @@ const PaginationFields = ({ carList }) => {
     <form className={css.paginationForm}>
       <fieldset className={css.fieldset}>
         <label className={css.label}>Car brand</label>
-        <select
+        <Select
+          options={selectOptions(carList)}
           value={selectBrand}
-          onChange={onSelectBrand}
-          className={css.select}
-        >
-          <option>Choose a brand</option>
-          {carList.map((item, index) => (
-            <option value={item.toLowerCase()} key={index}>
-              {item}
-            </option>
-          ))}
-        </select>
+          onChange={(selectedOption) => {
+            setSelectBrand(selectedOption);
+          }}
+          placeholder="Choose a brand"
+          classNamePrefix="custom-select"
+          styles={{
+            control: (base) => ({
+              ...base,
+              border: 'none',
+              background: '#f7f7f7',
+              borderRadius: '12px',
+              minHeight: '44px',
+              padding: '2px 6px',
+              fontSize: '16px'
+            }),
+            placeholder: (base) => ({
+              ...base,
+              color: '#101828'
+            }),
+            menu: (base) => ({
+              ...base,
+              borderRadius: '12px',
+              color: '#8d929a',
+              zIndex: 5
+            }),
+            option: (base, state) => ({
+              ...base,
+              background: 'transparent',
+              color: state.isSelected ? '#101828' : '#8d929a',
+              padding: '12px 16px',
+              cursor: 'pointer'
+            }),
+            indicatorSeparator: (base) => ({
+              ...base,
+              color: '#101828'
+            })
+          }}
+        />
       </fieldset>
 
       <fieldset className={css.fieldset}>
-        <label className={css.label}>Price/ 1 hour</label>
-        <select
+        <label className={css.label}>Price / 1 hour</label>
+        <Select
+          options={selectOptions(pricePerHour)}
           value={selectPrice}
-          onChange={onSelectPrice}
-          className={css.select}
-        >
-          <option>Choose a brand</option>
-          {pricePerHour.map((item, index) => (
-            <option value={item.toLowerCase()} key={index}>
-              {item}
-            </option>
-          ))}
-        </select>
+          onChange={(selectedOption) => {
+            setSelectPrice(selectedOption);
+          }}
+          placeholder="Choose price"
+          classNamePrefix="custom-select"
+          styles={{
+            control: (base) => ({
+              ...base,
+              border: 'none',
+              background: '#f7f7f7',
+              borderRadius: '12px',
+              minHeight: '44px',
+              padding: '2px 6px',
+              fontSize: '16px'
+            }),
+            placeholder: (base) => ({
+              ...base,
+              color: '#101828'
+            }),
+            menu: (base) => ({
+              ...base,
+              borderRadius: '12px',
+              color: '#8d929a',
+              zIndex: 5
+            }),
+            option: (base, state) => ({
+              ...base,
+              background: 'transparent',
+              color: state.isSelected ? '#101828' : '#8d929a',
+              padding: '12px 16px',
+              cursor: 'pointer'
+            }),
+            indicatorSeparator: (base) => ({
+              ...base,
+              color: '#101828'
+            })
+          }}
+        />
       </fieldset>
 
       <div className={css.mileageFieldsContainer}>
@@ -125,7 +189,9 @@ const PaginationFields = ({ carList }) => {
         <div>
           <input
             value={selectFromMileage}
-            onChange={onSelectFromMileage}
+            onChange={(e) => {
+              setFromMileage(e.target.value);
+            }}
             id={mileageFieldId}
             className={css.fromMileage}
             type="number"
@@ -133,7 +199,9 @@ const PaginationFields = ({ carList }) => {
           />
           <input
             value={selectToMileage}
-            onChange={onSelectToMileage}
+            onChange={(e) => {
+              setToMileage(e.target.value);
+            }}
             className={css.toMileage}
             type="number"
             placeholder="To"
@@ -144,7 +212,7 @@ const PaginationFields = ({ carList }) => {
       <button
         type="submit"
         style={{ marginBottom: -24, width: 156 }}
-        className={`blue-btn`}
+        className="blue-btn"
       >
         Search
       </button>
