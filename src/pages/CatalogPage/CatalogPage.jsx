@@ -1,23 +1,45 @@
-import { useEffect } from 'react';
+import { useEffect, lazy, Suspense } from 'react';
 import css from './CatalogPage.module.css';
-import PaginationFields from '../../components/PaginationFields/PaginationFields.jsx';
 import { useDispatch, useSelector } from 'react-redux';
-import { selectCarList } from '../../redux/cars/selectors.js';
-import { getCarListThunk } from '../../redux/cars/operations.js';
+import {
+  selectCarBrands,
+  selectCarList,
+  selectIsLoading
+} from '../../redux/cars/selectors.js';
+import {
+  getAllRentCarsThunk,
+  getCarBrandsThunk
+} from '../../redux/cars/operations.js';
+import { Loader } from '../../components/Loader/Loader.jsx';
 
 const CatalogPage = () => {
-  const dispatch = useDispatch();
+  const PaginationFields = lazy(() =>
+    import('../../components/PaginationFields/PaginationFields.jsx')
+  );
+  const CarList = lazy(() => import('../../components/CarList/CarList.jsx'));
 
+  const dispatch = useDispatch();
+  const isLoading = useSelector(selectIsLoading);
+  const carBrands = useSelector(selectCarBrands);
   const carList = useSelector(selectCarList);
 
   useEffect(() => {
-    dispatch(getCarListThunk());
+    dispatch(getCarBrandsThunk());
+    dispatch(getAllRentCarsThunk());
   }, [dispatch]);
 
+  if (!carBrands || carBrands.length || carList.length === 0) return null;
+
   return (
-    <section className={css.catalogPageSection}>
-      <PaginationFields carList={carList} />
-    </section>
+    <>
+      <Suspense fallback={<Loader />}>
+        {isLoading && <Loader />}
+        <section className={css.catalogPageSection}>
+          <PaginationFields carList={carBrands} />
+          <CarList carData={carList} />
+        </section>
+      </Suspense>
+    </>
   );
 };
 

@@ -1,0 +1,37 @@
+.carItemContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.carImg {
+  border-radius: 14px;
+  width: 276px;
+  height: 268px;
+}
+
+.likeBtn {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+}
+
+.basicInfCarContainer {
+  display: flex;
+  align-items: center;
+  gap: 87px;
+}
+
+.detailedInformationContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  gap: 4px;
+}
+
+.detailedInformation {
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 1.33333;
+  color: var(--navy-gray);
+}

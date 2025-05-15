@@ -1,7 +1,8 @@
-import { createSlice } from '@reduxjs/toolkit';
-import { getCarListThunk } from './operations.js';
+import { createSlice, isAnyOf } from '@reduxjs/toolkit';
+import { getAllRentCarsThunk, getCarBrandsThunk } from './operations.js';
 
 const initialState = {
+  brands: [],
   carList: [],
   isLoading: false
 };
@@ -11,18 +12,30 @@ const slice = createSlice({
   initialState,
   extraReducers: (builder) => {
     builder
-      .addCase(getCarListThunk.pending, (state) => {
-        state.isLoading = true;
+
+      .addCase(getCarBrandsThunk.fulfilled, (state, action) => {
+        state.brands = action.payload;
+        state.isLoading = false;
       })
 
-      .addCase(getCarListThunk.fulfilled, (state, action) => {
+      .addCase(getAllRentCarsThunk.fulfilled, (state, action) => {
+        state.isLoading = false;
         state.carList = action.payload;
-        state.isLoading = false;
       })
 
-      .addCase(getCarListThunk.rejected, (state) => {
-        state.isLoading = false;
-      });
+      .addMatcher(
+        isAnyOf(getCarBrandsThunk.pending, getAllRentCarsThunk.pending),
+        (state) => {
+          state.isLoading = true;
+        }
+      )
+
+      .addMatcher(
+        isAnyOf(getCarBrandsThunk.rejected, getAllRentCarsThunk.rejected),
+        (state) => {
+          state.isLoading = false;
+        }
+      );
   }
 });
 

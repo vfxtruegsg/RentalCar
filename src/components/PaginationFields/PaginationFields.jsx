@@ -30,6 +30,8 @@ const selectOptions = (data) => {
 };
 
 const PaginationFields = ({ carList }) => {
+  const mileageFieldId = nanoid();
+
   const [searchParams, setSearchParams] = useSearchParams();
 
   const brandOptions = selectOptions(carList);
@@ -50,8 +52,6 @@ const PaginationFields = ({ carList }) => {
   const [selectToMileage, setToMileage] = useState(
     searchParams.get('maxMileage') ?? ''
   );
-
-  const mileageFieldId = nanoid();
 
   useEffect(() => {
     const params = new URLSearchParams(searchParams);
@@ -97,6 +97,7 @@ const PaginationFields = ({ carList }) => {
         <Select
           options={selectOptions(carList)}
           value={selectBrand}
+          defaultValue={selectBrand}
           onChange={(selectedOption) => {
             setSelectBrand(selectedOption);
           }}
