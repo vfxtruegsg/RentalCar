@@ -1,9 +1,11 @@
+import { showToastSuccessMessage } from '../../utils/toastMessages.js';
 import css from './RentForm.module.css';
 
 const RentForm = () => {
   const onSubmit = (e) => {
     e.preventDefault();
     //  write logic ..... or we can use another library for work with form
+    showToastSuccessMessage('Successfully rent a car!');
   };
 
   return (
@@ -14,15 +16,30 @@ const RentForm = () => {
       </p>
 
       <form onSubmit={onSubmit}>
-        <input type="text" placeholder="Name*" className={css.inputField} />
-        <input type="email" placeholder="Email*" className={css.inputField} />
+        <input
+          type="text"
+          name="userName"
+          placeholder="Name*"
+          className={css.inputField}
+        />
+        <input
+          type="email"
+          name="userEmail"
+          placeholder="Email*"
+          className={css.inputField}
+        />
         <input
           onFocus={(e) => (e.target.type = 'date')}
           onBlur={(e) => e.target.value === '' && (e.target.type = 'text')}
+          name="date"
           placeholder="Booking date"
           className={css.inputField}
         />
-        <textarea placeholder="Comment" className={css.textareaField} />
+        <textarea
+          placeholder="Comment"
+          name="userComment"
+          className={css.textareaField}
+        />
         <button type="submit" className={`${css.sendButton} blue-btn`}>
           Send
         </button>
