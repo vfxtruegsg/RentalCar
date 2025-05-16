@@ -42,7 +42,11 @@ const slice = createSlice({
 
       .addCase(getAllRentCarsThunk.fulfilled, (state, action) => {
         state.isLoading = false;
-        state.car.carData = action.payload.cars;
+        if (action.payload.page > 1) {
+          state.car.carData = [...state.car.carData, ...action.payload.cars];
+        } else {
+          state.car.carData = action.payload.cars;
+        }
       })
 
       .addCase(getDetailDescriptionCarThunk.fulfilled, (state, action) => {

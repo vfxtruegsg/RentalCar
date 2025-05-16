@@ -1,2 +1,18 @@
 .catalogPageSection {
+  padding-bottom: 124px;
+}
+
+.loadMoreBtn {
+  display: block;
+  border: 1px solid var(--blue);
+  border-radius: 12px;
+  padding: 12px 51px;
+  margin: 0 auto;
+
+  transition: all var(--animation);
+}
+
+.loadMoreBtn:hover,
+.loadMoreBtn:focus {
+  border-color: var(--navy-blue);
 }

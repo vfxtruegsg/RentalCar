@@ -17,7 +17,9 @@ const CarDescription = ({ data }) => {
             <h1 className={css.header}>
               {data.brand} {data.model}, {data.year}
             </h1>
-            <p style={{ color: '#8d929a' }}>Id: {data.id.split('-')[0]}</p>
+            <p style={{ color: '#8d929a' }}>
+              Id: {data.id.split('-')[0].split('').splice(0, 4)}
+            </p>
           </div>
           <div className={css.location}>
             <img

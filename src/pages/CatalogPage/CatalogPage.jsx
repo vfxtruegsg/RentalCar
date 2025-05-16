@@ -1,4 +1,4 @@
-import { useEffect, lazy, Suspense } from 'react';
+import { useEffect, lazy, Suspense, useState } from 'react';
 import css from './CatalogPage.module.css';
 import { useDispatch, useSelector } from 'react-redux';
 import {
@@ -21,6 +21,9 @@ const CarList = lazy(() => import('../../components/CarList/CarList.jsx'));
 const CatalogPage = () => {
   const [searchParams] = useSearchParams();
 
+  const [page, setPage] = useState(1);
+  const limit = 12;
+
   const dispatch = useDispatch();
   const isLoading = useSelector(selectIsLoading);
   const carBrands = useSelector(selectCarBrands);
@@ -31,14 +34,14 @@ const CatalogPage = () => {
       brand: searchParams.get('brand') || '',
       rentalPrice: searchParams.get('rentalPrice') || '',
       minMileage: searchParams.get('minMileage') || '',
-      maxMileage: searchParams.get('maxMileage') || ''
+      maxMileage: searchParams.get('maxMileage') || '',
+      limit,
+      page
     };
 
     dispatch(getCarBrandsThunk());
-    if (carData.length === 0) {
-      dispatch(getAllRentCarsThunk(filterQuery));
-    }
-  }, [dispatch, searchParams, carData.length]);
+    dispatch(getAllRentCarsThunk(filterQuery));
+  }, [dispatch, searchParams, page]);
 
   return (
     <>
@@ -47,6 +50,14 @@ const CatalogPage = () => {
         <section className={`${css.catalogPageSection} container`}>
           <PaginationFields brands={carBrands} />
           <CarList carData={carData} />
+          {carData.length > 0 && (
+            <button
+              onClick={() => setPage((prev) => prev + 1)}
+              className={css.loadMoreBtn}
+            >
+              Load more
+            </button>
+          )}
         </section>
       </Suspense>
     </>
