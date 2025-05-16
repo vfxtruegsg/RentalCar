@@ -8,6 +8,7 @@ const Layout = lazy(() => import('./components/Layout/Layout.jsx'));
 const SelectedCarPage = lazy(() =>
   import('./pages/SelectedCarPage/SelectedCarPage.jsx')
 );
+
 function App() {
   return (
     <>

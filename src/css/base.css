@@ -122,6 +122,5 @@ body {
 
 .blue-btn:hover,
 .blue-btn:focus {
-  transform: scale(1.05);
   background: var(--navy-blue);
 }

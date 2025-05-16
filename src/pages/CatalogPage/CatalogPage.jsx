@@ -13,13 +13,13 @@ import {
 import { Loader } from '../../components/Loader/Loader.jsx';
 import { useSearchParams } from 'react-router-dom';
 
+const PaginationFields = lazy(() =>
+  import('../../components/PaginationFields/PaginationFields.jsx')
+);
+const CarList = lazy(() => import('../../components/CarList/CarList.jsx'));
+
 const CatalogPage = () => {
   const [searchParams] = useSearchParams();
-
-  const PaginationFields = lazy(() =>
-    import('../../components/PaginationFields/PaginationFields.jsx')
-  );
-  const CarList = lazy(() => import('../../components/CarList/CarList.jsx'));
 
   const dispatch = useDispatch();
   const isLoading = useSelector(selectIsLoading);
@@ -44,7 +44,7 @@ const CatalogPage = () => {
     <>
       <Suspense fallback={<Loader />}>
         {isLoading && <Loader />}
-        <section className={css.catalogPageSection}>
+        <section className={`${css.catalogPageSection} container`}>
           <PaginationFields brands={carBrands} />
           <CarList carData={carData} />
         </section>

@@ -8,7 +8,7 @@ export const getCarBrandsThunk = createAsyncThunk(
       const { data } = await rentalCarApi.get('/brands');
       return data;
     } catch (error) {
-      thunkApi.rejectWithValue(error.message);
+      return thunkApi.rejectWithValue(error.message);
     }
   }
 );
@@ -20,7 +20,19 @@ export const getAllRentCarsThunk = createAsyncThunk(
       const { data } = await rentalCarApi.get('/cars', { params: payload });
       return data;
     } catch (error) {
-      thunkApi.rejectWithValue(error.message);
+      return thunkApi.rejectWithValue(error.message);
+    }
+  }
+);
+
+export const getDetailDescriptionCarThunk = createAsyncThunk(
+  'car/getDetailDescriptionCar',
+  async (carId, thunkApi) => {
+    try {
+      const { data } = await rentalCarApi.get(`/cars/${carId}`);
+      return data;
+    } catch (error) {
+      return thunkApi.rejectWithValue(error.message);
     }
   }
 );

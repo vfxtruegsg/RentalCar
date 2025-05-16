@@ -1,7 +1,9 @@
+import { Link } from 'react-router-dom';
 import css from './CarItem.module.css';
 
 const CarItem = ({ carInf }) => {
   const addresData = carInf.address.split(', ');
+  const carMileage = String(carInf.mileage).split('');
 
   return (
     <li className={css.carItemContainer}>
@@ -36,11 +38,14 @@ const CarItem = ({ carInf }) => {
           {addresData[1]} | {addresData[2]} | {carInf.rentalCompany}
         </p>
         <p className={css.detailedInformation}>
-          {carInf.type} | {carInf.mileage} km
+          {carInf.type} | {carMileage[0]}{' '}
+          {carMileage.splice(1, carMileage.length)} km
         </p>
       </div>
 
-      <button className="blue-btn">Read More</button>
+      <Link to={carInf.id} className="blue-btn">
+        Read More
+      </Link>
     </li>
   );
 };

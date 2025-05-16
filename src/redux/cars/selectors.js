@@ -1,3 +1,5 @@
-export const selectCarBrands = (state) => state.car.brands;
-export const selectCarList = (state) => state.car.carData;
-export const selectIsLoading = (state) => state.car.isLoading;
+export const selectCarBrands = (state) => state.cars.car.brands;
+export const selectCarList = (state) => state.cars.car.carData;
+export const selectCarDescription = (state) =>
+  state.cars.car.selectedCarDescription;
+export const selectIsLoading = (state) => state.cars.isLoading;
