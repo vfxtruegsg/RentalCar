@@ -1,9 +1,20 @@
 import { Link } from 'react-router-dom';
 import css from './CarItem.module.css';
+import { useDispatch, useSelector } from 'react-redux';
+import { selectIsFavorite } from '../../redux/cars/selectors.js';
+import { toggleFavorite } from '../../redux/cars/slice.js';
 
 const CarItem = ({ carInf }) => {
+  const dispatch = useDispatch();
+  const favorites = useSelector(selectIsFavorite);
+  const isFavorite = favorites.find((item) => item.id == carInf.id);
+
   const addresData = carInf.address.split(', ');
   const carMileage = String(carInf.mileage).split('');
+
+  const handleLikeClick = () => {
+    dispatch(toggleFavorite(carInf));
+  };
 
   return (
     <li className={css.carItemContainer}>
@@ -13,10 +24,10 @@ const CarItem = ({ carInf }) => {
           src={carInf.img}
           alt={`${(carInf.brand, carInf.model)} picture`}
         />
-        <button>
+        <button onClick={handleLikeClick}>
           <img
             className={css.likeBtn}
-            src="/likeBtn.svg"
+            src={!isFavorite ? '/likeBtn.svg' : '/likeBtnActive.svg'}
             alt="Like button"
             width={16}
             height={16}

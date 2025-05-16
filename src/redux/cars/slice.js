@@ -9,7 +9,8 @@ const initialState = {
   car: {
     brands: [],
     carData: [],
-    selectedCarDescription: []
+    selectedCarDescription: [],
+    favoriteCars: []
   },
 
   isLoading: false
@@ -18,6 +19,19 @@ const initialState = {
 const slice = createSlice({
   name: 'car',
   initialState,
+  reducers: {
+    toggleFavorite: (state, action) => {
+      const index = state.car.favoriteCars.findIndex(
+        (item) => item.id === action.payload.id
+      );
+
+      if (index === -1) {
+        state.car.favoriteCars.push(action.payload);
+      } else {
+        state.car.favoriteCars.splice(index, 1);
+      }
+    }
+  },
   extraReducers: (builder) => {
     builder
 
@@ -60,4 +74,5 @@ const slice = createSlice({
   }
 });
 
+export const { toggleFavorite } = slice.actions;
 export default slice.reducer;
