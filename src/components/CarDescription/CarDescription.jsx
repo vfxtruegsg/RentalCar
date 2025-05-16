@@ -1,5 +1,5 @@
 import css from './CarDescription.module.css';
-
+import RentForm from '../RentForm/RentForm.jsx';
 const CarDescription = ({ data }) => {
   const addresData = data.address.split(', ');
   const carType = data.type.split('');
@@ -9,6 +9,7 @@ const CarDescription = ({ data }) => {
     <div className={css.carDescriptionConteiner}>
       <div className={css.communicateContainer}>
         <img className={css.img} src={data.img} alt="Car image" />
+        <RentForm />
       </div>
       <div className={css.InfContainer}>
         <div className={css.basicInf}>

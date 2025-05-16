@@ -3,6 +3,7 @@ import css from './CarItem.module.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectIsFavorite } from '../../redux/cars/selectors.js';
 import { toggleFavorite } from '../../redux/cars/slice.js';
+import { showToastSuccessMessage } from '../../utils/toastMessages.js';
 
 const CarItem = ({ carInf }) => {
   const dispatch = useDispatch();
@@ -14,6 +15,10 @@ const CarItem = ({ carInf }) => {
 
   const handleLikeClick = () => {
     dispatch(toggleFavorite(carInf));
+
+    isFavorite
+      ? showToastSuccessMessage('Successfully deleted favorite car!')
+      : showToastSuccessMessage('Successfully added favorite car!');
   };
 
   return (
