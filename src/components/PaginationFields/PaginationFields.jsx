@@ -4,8 +4,6 @@ import { useSearchParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { nanoid } from '@reduxjs/toolkit';
 import { showToastErrorMessage } from '../../utils/toastMessages.js';
-import { useDispatch } from 'react-redux';
-import { getAllRentCarsThunk } from '../../redux/cars/operations.js';
 
 const pricePerHour = [
   '10',
@@ -33,7 +31,6 @@ const selectOptions = (data) => {
 };
 
 const PaginationFields = ({ brands }) => {
-  const dispatch = useDispatch();
   const mileageFieldId = nanoid();
 
   const [searchParams, setSearchParams] = useSearchParams();
@@ -105,15 +102,6 @@ const PaginationFields = ({ brands }) => {
         'The minimum mileage must be less than the maximum.'
       );
     }
-
-    dispatch(
-      getAllRentCarsThunk({
-        brand: selectBrand?.value || '',
-        rentalPrice: selectPrice?.value || '',
-        minMileage: fromMileageValue || '',
-        maxMileage: toMileageValue || ''
-      })
-    );
   };
 
   return (

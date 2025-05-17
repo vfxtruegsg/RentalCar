@@ -34,6 +34,14 @@ const CatalogPage = () => {
   const isLoadMoreVisible = carData.length < carTotal;
 
   useEffect(() => {
+    setPage(1);
+  }, [searchParams]);
+
+  useEffect(() => {
+    dispatch(getCarBrandsThunk());
+  }, [dispatch]);
+
+  useEffect(() => {
     const filterQuery = {
       brand: searchParams.get('brand') || '',
       rentalPrice: searchParams.get('rentalPrice') || '',
@@ -43,7 +51,6 @@ const CatalogPage = () => {
       page
     };
 
-    dispatch(getCarBrandsThunk());
     dispatch(getAllRentCarsThunk(filterQuery));
   }, [dispatch, searchParams, page]);
 
