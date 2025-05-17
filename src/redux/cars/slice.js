@@ -10,9 +10,9 @@ const initialState = {
     brands: [],
     carData: [],
     selectedCarDescription: [],
-    favoriteCars: []
+    favoriteCars: [],
+    totalCars: null
   },
-
   isLoading: false
 };
 
@@ -42,6 +42,7 @@ const slice = createSlice({
 
       .addCase(getAllRentCarsThunk.fulfilled, (state, action) => {
         state.isLoading = false;
+        state.car.totalCars = action.payload.totalCars;
         if (action.payload.page > 1) {
           state.car.carData = [...state.car.carData, ...action.payload.cars];
         } else {

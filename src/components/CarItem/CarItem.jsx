@@ -46,22 +46,31 @@ const CarItem = ({ carInf }) => {
           <span style={{ color: '#3470ff' }}>{carInf.model}</span>,{' '}
           {carInf.year}
         </h3>
-        <p>$ {carInf.rentalPrice}</p>
+        <p>${carInf.rentalPrice}</p>
       </div>
 
-      <div className={css.detailedInformationContainer}>
-        <p className={css.detailedInformation}>
-          {addresData[1]} | {addresData[2]} | {carInf.rentalCompany}
-        </p>
-        <p className={css.detailedInformation}>
-          {carInf.type} | {carMileage[0]}{' '}
-          {carMileage.splice(1, carMileage.length)} km
-        </p>
-      </div>
+      <div
+        style={{
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'space-between',
+          height: '100%'
+        }}
+      >
+        <div className={css.detailedInformationContainer}>
+          <p className={css.detailedInformation}>
+            {addresData[1]} | {addresData[2]} | {carInf.rentalCompany}
+          </p>
+          <p className={css.detailedInformation}>
+            {carInf.type} | {carMileage[0]}{' '}
+            {carMileage.splice(1, carMileage.length)} km
+          </p>
+        </div>
 
-      <Link to={carInf.id} className="blue-btn">
-        Read More
-      </Link>
+        <Link to={carInf.id} className="blue-btn">
+          Read More
+        </Link>
+      </div>
     </li>
   );
 };

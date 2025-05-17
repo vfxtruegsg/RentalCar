@@ -3,4 +3,5 @@ export const selectCarList = (state) => state.cars.car.carData;
 export const selectCarDescription = (state) =>
   state.cars.car.selectedCarDescription;
 export const selectIsFavorite = (state) => state.cars.car.favoriteCars;
+export const selectTotalCars = (state) => state.cars.car.totalCars;
 export const selectIsLoading = (state) => state.cars.isLoading;

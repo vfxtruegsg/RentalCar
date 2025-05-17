@@ -4,7 +4,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import {
   selectCarBrands,
   selectCarList,
-  selectIsLoading
+  selectIsLoading,
+  selectTotalCars
 } from '../../redux/cars/selectors.js';
 import {
   getAllRentCarsThunk,
@@ -28,6 +29,9 @@ const CatalogPage = () => {
   const isLoading = useSelector(selectIsLoading);
   const carBrands = useSelector(selectCarBrands);
   const carData = useSelector(selectCarList);
+  const carTotal = useSelector(selectTotalCars);
+
+  const isLoadMoreVisible = carData.length < carTotal;
 
   useEffect(() => {
     const filterQuery = {
@@ -50,7 +54,7 @@ const CatalogPage = () => {
         <section className={`${css.catalogPageSection} container`}>
           <PaginationFields brands={carBrands} />
           <CarList carData={carData} />
-          {carData.length > 0 && (
+          {isLoadMoreVisible && (
             <button
               onClick={() => setPage((prev) => prev + 1)}
               className={css.loadMoreBtn}

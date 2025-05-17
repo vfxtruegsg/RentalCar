@@ -21,7 +21,7 @@
 
 .basicInfCarContainer {
   display: flex;
-  align-items: center;
+  align-items: start;
   justify-content: space-between;
   width: calc(100% - 11px);
 
@@ -33,8 +33,6 @@
   flex-direction: column;
   align-items: start;
   gap: 4px;
-
-  margin-bottom: 28px;
 }
 
 .detailedInformation {
